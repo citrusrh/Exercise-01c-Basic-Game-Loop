@@ -19,16 +19,24 @@ def find_passage(game_desc, pid):
 # ------------------------------------------------------
 
 def update(current, game_desc, choice):
-    if current == "":
+    if choice == "":
         return current
+    for i in current["links"]:
+        print(i['name'])
+        print(choice)
+        if choice == i['name']:
+            print("Now moving to " + i['link'])
+            current = find_passage(game_desc, i["pid"])
+            return current
     return current
 
 def render(current):
-    pass
+    print("You are at the " + current['name'] + "\n")
+    print(current["text"] + "\n")
 
 def get_input(current):
     choice = input("What would you like to do? (type quit to exit) ")
-    choice = choice.lower()
+    #choice = choice.lower()
     if choice in ["quit","q","exit"]:
         return "quit"
     return choice
